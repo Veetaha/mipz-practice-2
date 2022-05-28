@@ -34,7 +34,7 @@ interface CodeMetrics {
 }
 
 interface ClassMetrics {
-    // Depath of inheritance tree
+    // Depth of inheritance tree
     dit: number;
 
     // Number of children
@@ -48,13 +48,13 @@ interface ClassMetrics {
 class PropertyMetrics<T extends ts.MethodDeclaration | AttrDeclaration> {
     private = 0;
     inherited: T[] = [];
-    overriden: T[] = [];
+    overridden: T[] = [];
     own: T[] = [];
 
     constructor(private readonly kind: "methods" | "attrs") {}
 
     all(): T[] {
-        return [...this.inherited, ...this.overriden, ...this.own];
+        return [...this.inherited, ...this.overridden, ...this.own];
     }
 
     aggregate(ctx: CodeMetricsCtx, classTy: ts.Type) {
@@ -76,7 +76,7 @@ class PropertyMetrics<T extends ts.MethodDeclaration | AttrDeclaration> {
             }
 
             // This is a bug if wrong `kind` is passed.
-            // Unfortunatelly, this invariant has to be dynamic due to TS limitations.
+            // Unfortunately, this invariant has to be dynamic due to TS limitations.
             const decl = propDecl as T;
 
             if (util.isPrivate(decl)) {
@@ -96,7 +96,7 @@ class PropertyMetrics<T extends ts.MethodDeclaration | AttrDeclaration> {
 
             const classDecl = classTy.symbol.declarations![0];
 
-            const arr = decl.parent === classDecl ? "overriden" : "inherited";
+            const arr = decl.parent === classDecl ? "overridden" : "inherited";
 
             this[arr].push(decl);
         }
@@ -109,7 +109,7 @@ class PropertyMetrics<T extends ts.MethodDeclaration | AttrDeclaration> {
         return {
             private: this.private,
             inherited: mapProps(this.inherited),
-            overriden: mapProps(this.overriden),
+            overridden: mapProps(this.overridden),
             own: mapProps(this.own),
         };
     }
@@ -207,7 +207,7 @@ class CodeMetricsCtx {
             ahf.numerator += attrs.private;
             ahf.denumerator += totalAttrs;
 
-            pof.numerator += methods.overriden.length;
+            pof.numerator += methods.overridden.length;
             pof.denumerator += methods.own.length * noc;
         }
 
