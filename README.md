@@ -6,7 +6,7 @@ This is a CLI to calculate various code metrics for TypeScript projects.
 
 ```
 git clone git@github.com:Veetaha/mipz-practice-2.git
-cd mipz-practice-2.git
+cd mipz-practice-2
 npm install
 ```
 
