@@ -17,7 +17,7 @@ Invoke the CLI using `npm start` and passing the path to the project root source
 For example, analyze the code of `angular` compiler CLI cloned under `~/dev/angular`:
 
 ```bash
-npm start npm start ~/dev/angular/packages/compiler-cli/index.ts
+npm start ~/dev/angular/packages/compiler-cli/index.ts
 ```
 
 This will output a big JSON object to `stdout`. You can write it to file or pipe to any other tool for further analysis.
